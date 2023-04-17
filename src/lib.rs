@@ -19,16 +19,38 @@ impl Config {
 }
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    let file = fs::read_to_string(config.file_path)?;
+    let contents = fs::read_to_string(config.file_path)?;
 
+    for line in search(&config.query, &contents) {
+        println!("{line}")
+    }
+
+    Ok(())
+}
+
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     let mut findings = vec![];
-    for line in file.lines() {
-        if line.contains(&config.query) {
+
+    for line in contents.lines() {
+        if line.contains(query) {
             findings.push(line);
         }
     }
 
-    println!("Found:\n{:?}", findings);
+    findings
+}
 
-    Ok(())
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_result() {
+        let query = "ool";
+        let contents = "What a really great\nAnd cool\nProgramming language";
+
+        let result = search(query, contents);
+
+        assert_eq!(result, vec!["And cool"]);
+    }
 }
