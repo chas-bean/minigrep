@@ -2,7 +2,7 @@
 
 [![Rust](https://github.com/chas-bean/minigrep/actions/workflows/test.yml/badge.svg)](https://github.com/chas-bean/minigrep/actions/workflows/test.yml)
 
-Practice project from the Book of Rust, Chapter 12. The project is to make a mini version
+Practice project from The Rust Programming Language, Chapter 12. The project is to make a mini version
 of the `grep` command line utility
 
 ```
